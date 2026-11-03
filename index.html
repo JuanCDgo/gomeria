@@ -81,7 +81,7 @@
     }
   </style>
 
-  <!-- QRCode Library -->
+  <!-- QRCode Library (local with CDN fallback) -->
   <script src="qrcode.min.js"></script>
   <script>
     if (typeof QRCode === 'undefined') {
@@ -103,18 +103,23 @@
       <!-- Decoración industrial -->
       <div class="absolute -top-12 -right-12 w-32 h-32 bg-amberMech-500/10 rounded-full blur-2xl"></div>
       
-      <!-- Encabezado Tarjeta -->
-      <div class="space-y-1">
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amberMech-500/10 text-amberMech-400 border border-amberMech-500/30 text-xs font-black uppercase tracking-wider">
-          <span>🛞 Pase Digital de Beneficios</span>
+      <!-- Encabezado Tarjeta con Logo -->
+      <div class="flex flex-col items-center space-y-2">
+        <div id="passLogoBox" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amberMech-500 to-amberMech-700 flex items-center justify-center text-2xl shadow-md overflow-hidden">
+          🛞
         </div>
-        <h2 id="passWorkshopName" class="text-xl font-black text-white tracking-tight">Gomería · Motos & Bicis</h2>
-        <p class="text-xs text-slate-400">Cliente Frecuente</p>
+        <div class="space-y-0.5">
+          <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amberMech-500/10 text-amberMech-400 border border-amberMech-500/30 text-[10px] font-black uppercase tracking-wider">
+            <span>🛞 Pase Digital de Beneficios</span>
+          </div>
+          <h2 id="passWorkshopName" class="text-xl font-black text-white tracking-tight">Gomería · Motos & Bicis</h2>
+          <p class="text-xs text-slate-400">Cliente Frecuente</p>
+        </div>
       </div>
 
       <!-- Nombre del Socio -->
       <div class="bg-workshop-850 p-4 rounded-2xl border border-workshop-700/60">
-        <div class="text-xs text-slate-400 uppercase font-bold tracking-wider">Titular</div>
+        <div class="text-[11px] text-slate-400 uppercase font-bold tracking-wider">Titular</div>
         <div id="passClientName" class="text-lg font-black text-white">Martín Gómez</div>
         <div id="passClientVehicle" class="text-xs font-semibold text-amberMech-400 mt-0.5">🛵 Moto 110cc</div>
       </div>
@@ -136,8 +141,8 @@
       </div>
 
       <!-- QR del Cliente para escanear en caja -->
-      <div class="bg-white p-4 rounded-2xl inline-block shadow-lg mx-auto">
-        <div id="passQrContainer" class="flex justify-center items-center"></div>
+      <div class="bg-white p-3.5 rounded-2xl inline-block shadow-lg mx-auto">
+        <div id="passQrContainer" class="flex justify-center items-center min-w-[140px] min-h-[140px]"></div>
       </div>
       <p class="text-[11px] text-slate-400">Mostrá este código en la gomería al emparchar o cambiar cámara</p>
 
@@ -160,11 +165,12 @@
   <!-- ========================================== -->
   <div id="adminAppView" class="w-full max-w-lg mx-auto flex flex-col flex-1">
     
-    <!-- Header Fijo -->
+    <!-- Header Fijo con Logo -->
     <header class="sticky top-0 z-30 bg-workshop-950/95 backdrop-blur-md border-b border-workshop-800 px-4 py-3">
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2.5">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amberMech-500 to-amberMech-700 flex items-center justify-center text-xl shadow-md shadow-amberMech-500/20">
+          <!-- Logo del Taller -->
+          <div id="headerLogoBox" class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amberMech-500 to-amberMech-700 flex items-center justify-center text-xl shadow-md shadow-amberMech-500/20 overflow-hidden flex-shrink-0">
             🛞
           </div>
           <div>
@@ -227,8 +233,8 @@
           <span>Nuevo Trabajo de Gomería</span>
         </button>
 
-        <!-- Filtros Rápidos de Taller -->
-        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 text-xs">
+        <!-- Filtros Adaptables (Flex Wrap para que NUNCA se corte la palabra Bici) -->
+        <div class="flex items-center gap-1.5 flex-wrap pb-1 text-xs">
           <button onclick="setJobFilter('all')" id="filterJobAll" class="px-3 py-1.5 rounded-full font-bold bg-amberMech-500 text-workshop-950 shadow-sm whitespace-nowrap transition-all">
             Todos (<span id="countFilterAll">0</span>)
           </button>
@@ -321,17 +327,38 @@
       </section>
 
       <!-- ========================================== -->
-      <!-- TAB 4: AJUSTES & COBRO QR                 -->
+      <!-- TAB 4: AJUSTES & IDENTIDAD DE NEGOCIO     -->
       <!-- ========================================== -->
       <section id="tabContentAjustes" class="hidden space-y-4">
         
+        <!-- Identidad del Negocio: Logo & Nombre -->
         <div class="bg-workshop-900 p-4 rounded-2xl border border-workshop-800 space-y-3">
           <h2 class="text-sm font-black text-white flex items-center gap-2">
-            <span>🏪</span> Datos de la Gomería
+            <span>🏪</span> Identidad del Negocio
           </h2>
+          
+          <!-- Uploader de Logo con Previsualización -->
+          <div class="flex items-center gap-3 p-3 bg-workshop-850 rounded-xl border border-workshop-700/70">
+            <div id="settingsLogoPreview" class="w-14 h-14 rounded-2xl bg-workshop-800 border border-workshop-700 flex items-center justify-center text-2xl flex-shrink-0 overflow-hidden shadow-inner">
+              🛞
+            </div>
+            <div class="flex-1 space-y-1">
+              <label class="block text-xs font-bold text-slate-300">Logo del Taller</label>
+              <div class="flex items-center gap-2">
+                <label class="px-3 py-1.5 rounded-xl bg-amberMech-500 hover:bg-amberMech-400 text-workshop-950 font-black text-[11px] cursor-pointer active:scale-95 transition-all">
+                  <span>📷 Subir Logo</span>
+                  <input type="file" id="logoFileInput" accept="image/*" class="hidden" onchange="handleLogoUpload(event)">
+                </label>
+                <button type="button" onclick="removeShopLogo()" id="btnRemoveLogo" class="hidden px-2.5 py-1.5 rounded-xl bg-workshop-800 hover:bg-workshop-700 text-rose-400 font-bold text-[11px] border border-workshop-700 active:scale-95 transition-all">
+                  ✕ Quitar
+                </button>
+              </div>
+            </div>
+          </div>
+
           <div class="space-y-2 text-xs">
             <div>
-              <label class="block text-slate-400 font-bold mb-1">Nombre del Taller / Gomería</label>
+              <label class="block text-slate-400 font-bold mb-1">Nombre del Taller / Gomería *</label>
               <input type="text" id="settingShopName" class="w-full bg-workshop-850 border border-workshop-700 rounded-xl px-3 py-2 text-white font-bold focus:outline-none focus:border-amberMech-500">
             </div>
             <div>
@@ -450,19 +477,19 @@
         <div class="grid grid-cols-4 gap-1.5">
           <label class="flex flex-col items-center p-2 rounded-xl bg-workshop-850 border border-workshop-700 cursor-pointer text-center hover:border-amberMech-500">
             <input type="radio" name="jobWheel" value="Delantera" checked class="text-amberMech-500 focus:ring-0">
-            <span class="text-[11px] font-bold text-white mt-1">Delantera</span>
+            <span class="text-[11px] font-bold text-white mt-1 whitespace-nowrap">Delantera</span>
           </label>
           <label class="flex flex-col items-center p-2 rounded-xl bg-workshop-850 border border-workshop-700 cursor-pointer text-center hover:border-amberMech-500">
             <input type="radio" name="jobWheel" value="Trasera" class="text-amberMech-500 focus:ring-0">
-            <span class="text-[11px] font-bold text-white mt-1">Trasera</span>
+            <span class="text-[11px] font-bold text-white mt-1 whitespace-nowrap">Trasera</span>
           </label>
           <label class="flex flex-col items-center p-2 rounded-xl bg-workshop-850 border border-workshop-700 cursor-pointer text-center hover:border-amberMech-500">
             <input type="radio" name="jobWheel" value="Ambas" class="text-amberMech-500 focus:ring-0">
-            <span class="text-[11px] font-bold text-white mt-1">Ambas</span>
+            <span class="text-[11px] font-bold text-white mt-1 whitespace-nowrap">Ambas</span>
           </label>
           <label class="flex flex-col items-center p-2 rounded-xl bg-workshop-850 border border-workshop-700 cursor-pointer text-center hover:border-amberMech-500">
             <input type="radio" name="jobWheel" value="Suelta" class="text-amberMech-500 focus:ring-0">
-            <span class="text-[11px] font-bold text-white mt-1">Rueda Suelta</span>
+            <span class="text-[11px] font-bold text-white mt-1 whitespace-nowrap">Suelta</span>
           </label>
         </div>
       </div>
@@ -517,10 +544,10 @@
         </button>
       </div>
 
-      <!-- Vista desplegable del QR en pantalla -->
+      <!-- Vista desplegable del QR en pantalla (con fallback garantizado) -->
       <div id="cobroQrSection" class="hidden p-3 bg-workshop-850 rounded-2xl border border-workshop-700 space-y-2">
-        <div class="bg-white p-3 rounded-xl inline-block mx-auto">
-          <div id="cobroDynamicQr"></div>
+        <div class="bg-white p-3 rounded-xl inline-block mx-auto min-w-[150px] min-h-[150px] shadow-md">
+          <div id="cobroDynamicQr" class="flex items-center justify-center"></div>
         </div>
         <p class="text-[11px] text-slate-400 font-bold">Escaneá con Mercado Pago / MODO</p>
         <div id="cobroAliasText" class="text-xs font-black text-amberMech-400">Alias: gomeria.motos.mp</div>
@@ -614,7 +641,7 @@
     </div>
   </div>
 
-  <!-- MODAL: MOSTRAR QR DE COBRO RÁPIDO MOSTRADOR -->
+  <!-- MODAL: MOSTRAR QR DE COBRO RÁPIDO MOSTRADOR (CON FALLBACK) -->
   <div id="modalQuickQr" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/80 flex items-center justify-center p-4">
     <div class="w-full max-w-xs bg-workshop-900 border border-workshop-800 rounded-3xl p-5 space-y-4 text-center card-shadow">
       
@@ -623,8 +650,8 @@
         <button onclick="closeModal('modalQuickQr')" class="w-7 h-7 rounded-full bg-workshop-800 text-slate-400 hover:text-white flex items-center justify-center">✕</button>
       </div>
 
-      <div class="bg-white p-4 rounded-2xl inline-block mx-auto shadow-md">
-        <div id="quickQrContainer"></div>
+      <div class="bg-white p-3.5 rounded-2xl inline-block mx-auto shadow-md min-w-[170px] min-h-[170px] flex items-center justify-center">
+        <div id="quickQrContainer" class="flex items-center justify-center"></div>
       </div>
 
       <div class="space-y-1 text-xs">
@@ -643,6 +670,7 @@
     // --- ESTADO & CONFIGURACIÓN POR DEFECTO ---
     const DEFAULT_SETTINGS = {
       shopName: 'Gomería · Motos & Bicis',
+      shopLogo: '',
       phone: '5491155556666',
       alias: 'gomeria.motos.mp',
       cbu: '0000003100010002000300',
@@ -725,12 +753,78 @@
       // Modo Panel de Taller
       document.getElementById('adminAppView').classList.remove('hidden');
       loadSettingsToInputs();
+      updateShopLogos();
       renderJobs();
       renderClients();
       renderServices();
       updateMetrics();
-      generateQuickQr();
     });
+
+    // --- LOGO DEL TALLER (UPLOAD & RESIZE BASE64) ---
+    function handleLogoUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const maxDim = 280;
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxDim) {
+              height = Math.round((height * maxDim) / width);
+              width = maxDim;
+            }
+          } else {
+            if (height > maxDim) {
+              width = Math.round((width * maxDim) / height);
+              height = maxDim;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.85);
+
+          settings.shopLogo = dataUrl;
+          localStorage.setItem('gomeria_settings', JSON.stringify(settings));
+          updateShopLogos();
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+      event.target.value = '';
+    }
+
+    function removeShopLogo() {
+      settings.shopLogo = '';
+      localStorage.setItem('gomeria_settings', JSON.stringify(settings));
+      updateShopLogos();
+    }
+
+    function updateShopLogos() {
+      const headerBox = document.getElementById('headerLogoBox');
+      const previewBox = document.getElementById('settingsLogoPreview');
+      const passLogo = document.getElementById('passLogoBox');
+      const btnRemove = document.getElementById('btnRemoveLogo');
+
+      if (settings.shopLogo) {
+        const imgHtml = `<img src="${settings.shopLogo}" alt="Logo" class="w-full h-full object-cover rounded-2xl">`;
+        if (headerBox) headerBox.innerHTML = imgHtml;
+        if (previewBox) previewBox.innerHTML = imgHtml;
+        if (passLogo) passLogo.innerHTML = imgHtml;
+        if (btnRemove) btnRemove.classList.remove('hidden');
+      } else {
+        if (headerBox) headerBox.innerHTML = '🛞';
+        if (previewBox) previewBox.innerHTML = '🛞';
+        if (passLogo) passLogo.innerHTML = '🛞';
+        if (btnRemove) btnRemove.classList.add('hidden');
+      }
+    }
 
     // --- NAVEGACIÓN ENTRE PESTAÑAS ---
     function switchTab(tabId) {
@@ -815,10 +909,10 @@
             <div>
               <div class="flex items-center gap-1.5 flex-wrap">
                 <span class="text-xs font-black text-white">${j.clientName}</span>
-                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-workshop-800 text-amberMech-400 border border-workshop-700">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-workshop-800 text-amberMech-400 border border-workshop-700 whitespace-nowrap flex-shrink-0">
                   ${j.vehicleType === 'Moto' ? '🛵 Moto' : '🚲 Bici'}
                 </span>
-                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-workshop-800 text-slate-300 border border-workshop-700">
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-bold bg-workshop-800 text-slate-300 border border-workshop-700 whitespace-nowrap flex-shrink-0">
                   ${j.wheel === 'Suelta' ? 'Rueda Suelta' : 'Rueda ' + j.wheel}
                 </span>
               </div>
@@ -839,10 +933,10 @@
             </div>
           </div>
 
-          <!-- Servicios & Total -->
-          <div class="bg-workshop-850 p-2.5 rounded-xl border border-workshop-800/80 flex items-center justify-between text-xs">
-            <span class="text-slate-400 truncate max-w-[200px]" title="${serviceNames}">${serviceNames}</span>
-            <span class="font-black text-white text-sm">${formatCurrency(j.total)}</span>
+          <!-- Servicios & Total (Sin truncar de forma forzada para leer el servicio completo) -->
+          <div class="bg-workshop-850 p-2.5 rounded-xl border border-workshop-800/80 flex items-center justify-between gap-2 text-xs">
+            <span class="text-slate-300 font-medium leading-tight">${serviceNames}</span>
+            <span class="font-black text-white text-sm whitespace-nowrap">${formatCurrency(j.total)}</span>
           </div>
 
           <!-- Botones de Acción de Taller -->
@@ -1260,27 +1354,50 @@ ${passUrl}`;
       document.getElementById('cobroAliasText').textContent = 'Alias: ' + (settings.alias || 'gomeria.motos.mp');
       document.getElementById('cobroQrSection').classList.add('hidden');
 
-      // Generar QR para el monto del trabajo
-      const qrEl = document.getElementById('cobroDynamicQr');
-      qrEl.innerHTML = '';
-      if (typeof QRCode !== 'undefined') {
-        const qrData = `00020101021243650014AR.GOB.BCRA.INTEROPERABLE54${job.total}.005802AR59${settings.titular}6007CORDOBA62170513${settings.alias}6304`;
-        new QRCode(qrEl, {
-          text: qrData,
-          width: 140,
-          height: 140,
-          colorDark: '#090a0d',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.M
-        });
-      }
-
       openModal('modalCobro');
     }
 
     function toggleCobroQrView() {
       const section = document.getElementById('cobroQrSection');
-      section.classList.toggle('hidden');
+      const isHidden = section.classList.contains('hidden');
+      if (isHidden) {
+        section.classList.remove('hidden');
+        const job = jobs.find(j => j.id === activeCobroJobId);
+        renderCobroDynamicQr(job ? job.total : 0);
+      } else {
+        section.classList.add('hidden');
+      }
+    }
+
+    function renderCobroDynamicQr(amount) {
+      const qrEl = document.getElementById('cobroDynamicQr');
+      if (!qrEl) return;
+      qrEl.innerHTML = '';
+      const alias = settings.alias || 'gomeria.motos.mp';
+      const qrPayload = amount > 0 
+        ? `https://mpago.la/transfer?alias=${encodeURIComponent(alias)}&amount=${amount}`
+        : `https://mpago.la/transfer?alias=${encodeURIComponent(alias)}`;
+
+      let success = false;
+      try {
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(qrEl, {
+            text: qrPayload,
+            width: 150,
+            height: 150,
+            colorDark: '#090a0d',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+          success = true;
+        }
+      } catch (err) {
+        console.warn('QRCode JS error:', err);
+      }
+
+      if (!success) {
+        qrEl.innerHTML = `<img src="https://quickchart.io/qr?text=${encodeURIComponent(qrPayload)}&size=150" alt="QR Cobro" class="w-[150px] h-[150px] rounded-xl shadow-sm mx-auto block">`;
+      }
     }
 
     function processPayment(type) {
@@ -1389,31 +1506,44 @@ ${passUrl}`;
 
       localStorage.setItem('gomeria_settings', JSON.stringify(settings));
       document.getElementById('headerShopName').textContent = settings.shopName;
-      generateQuickQr();
+      updateShopLogos();
       alert('¡Ajustes guardados correctamente!');
     }
 
-    // --- COBRO QR MOSTRADOR ---
+    // --- COBRO QR MOSTRADOR CON DOBLE MOTOR & FALLBACK ---
     function openQuickQrModal() {
       document.getElementById('quickQrAliasDisplay').textContent = 'Alias: ' + (settings.alias || 'gomeria.motos.mp');
       document.getElementById('quickQrTitularDisplay').textContent = 'Titular: ' + (settings.titular || 'Juan Gómez');
       openModal('modalQuickQr');
+      setTimeout(() => generateQuickQr(), 60);
     }
 
     function generateQuickQr() {
       const container = document.getElementById('quickQrContainer');
       if (!container) return;
       container.innerHTML = '';
-      if (typeof QRCode !== 'undefined') {
-        const qrPayload = `00020101021243650014AR.GOB.BCRA.INTEROPERABLE5802AR59${settings.titular || 'TALLER'}6007CORDOBA62170513${settings.alias || 'gomeria.motos.mp'}6304`;
-        new QRCode(container, {
-          text: qrPayload,
-          width: 160,
-          height: 160,
-          colorDark: '#090a0d',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.M
-        });
+      const alias = settings.alias || 'gomeria.motos.mp';
+      const qrPayload = `https://mpago.la/transfer?alias=${encodeURIComponent(alias)}`;
+      
+      let success = false;
+      try {
+        if (typeof QRCode !== 'undefined') {
+          new QRCode(container, {
+            text: qrPayload,
+            width: 170,
+            height: 170,
+            colorDark: '#090a0d',
+            colorLight: '#ffffff',
+            correctLevel: QRCode.CorrectLevel.M
+          });
+          success = true;
+        }
+      } catch (err) {
+        console.warn('QRCode JS error:', err);
+      }
+
+      if (!success) {
+        container.innerHTML = `<img src="https://quickchart.io/qr?text=${encodeURIComponent(qrPayload)}&size=170" alt="QR Cobro" class="w-[170px] h-[170px] rounded-xl shadow-sm mx-auto block">`;
       }
     }
 
@@ -1431,6 +1561,7 @@ ${passUrl}`;
       document.getElementById('passWorkshopName').textContent = settings.shopName || 'Gomería · Motos & Bicis';
       document.getElementById('passClientName').textContent = client.name;
       document.getElementById('passClientVehicle').textContent = client.vehicle || 'Vehículo Frecuente';
+      updateShopLogos();
 
       const target = settings.targetStamps || 5;
       const stamps = client.stamps || 0;
@@ -1452,18 +1583,31 @@ ${passUrl}`;
         grid.appendChild(div);
       }
 
-      // QR del cliente para caja
+      // QR del cliente para caja con fallback
       const qrBox = document.getElementById('passQrContainer');
-      qrBox.innerHTML = '';
-      if (typeof QRCode !== 'undefined') {
-        new QRCode(qrBox, {
-          text: `GOMERIA_CLIENT:${client.id}`,
-          width: 140,
-          height: 140,
-          colorDark: '#090a0d',
-          colorLight: '#ffffff',
-          correctLevel: QRCode.CorrectLevel.M
-        });
+      if (qrBox) {
+        qrBox.innerHTML = '';
+        const qrPayload = `GOMERIA_CLIENT:${client.id}`;
+        let passSuccess = false;
+        try {
+          if (typeof QRCode !== 'undefined') {
+            new QRCode(qrBox, {
+              text: qrPayload,
+              width: 140,
+              height: 140,
+              colorDark: '#090a0d',
+              colorLight: '#ffffff',
+              correctLevel: QRCode.CorrectLevel.M
+            });
+            passSuccess = true;
+          }
+        } catch (err) {
+          console.warn('QRCode JS pass error:', err);
+        }
+
+        if (!passSuccess) {
+          qrBox.innerHTML = `<img src="https://quickchart.io/qr?text=${encodeURIComponent(qrPayload)}&size=140" alt="QR Cliente" class="w-[140px] h-[140px] rounded-xl shadow-sm mx-auto block">`;
+        }
       }
     }
 
@@ -1526,6 +1670,7 @@ ${passUrl}`;
           saveJobsToStorage();
 
           loadSettingsToInputs();
+          updateShopLogos();
           renderJobs();
           renderClients();
           renderServices();
