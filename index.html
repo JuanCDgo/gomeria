@@ -98,19 +98,19 @@
   <!-- ========================================== -->
   <!-- VISTA PÚBLICA: TARJETA DIGITAL DEL CLIENTE -->
   <!-- ========================================== -->
-  <div id="customerPassView" class="hidden min-h-screen w-full flex-col items-center justify-center p-4 bg-gradient-to-b from-workshop-950 via-workshop-900 to-black">
+  <div id="customerPassView" class="hidden min-h-screen w-full flex-col items-center justify-center p-4 bg-[#0F1015]">
     <div class="w-full max-w-sm rounded-3xl bg-workshop-900 border border-amberMech-500/30 p-6 card-shadow space-y-5 text-center relative overflow-hidden">
-      <!-- Decoración industrial -->
-      <div class="absolute -top-12 -right-12 w-32 h-32 bg-amberMech-500/10 rounded-full blur-2xl"></div>
+      <!-- Decoración industrial sutil -->
+      <div class="absolute -top-12 -right-12 w-32 h-32 bg-amberMech-500/5 rounded-full blur-2xl"></div>
       
       <!-- Encabezado Tarjeta con Logo -->
       <div class="flex flex-col items-center space-y-2">
-        <div id="passLogoBox" class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amberMech-500 to-amberMech-700 flex items-center justify-center text-2xl shadow-md overflow-hidden">
+        <div id="passLogoBox" class="w-14 h-14 rounded-2xl bg-amber-500 text-workshop-950 flex items-center justify-center text-2xl shadow-sm overflow-hidden">
           🛞
         </div>
         <div class="space-y-0.5">
           <div class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-amberMech-500/10 text-amberMech-400 border border-amberMech-500/30 text-[10px] font-black uppercase tracking-wider">
-            <span>🛞 Pase Digital de Beneficios</span>
+            <span>Pase Digital de Beneficios</span>
           </div>
           <h2 id="passWorkshopName" class="text-xl font-black text-white tracking-tight">Gomería · Motos & Bicis</h2>
           <p class="text-xs text-slate-400">Cliente Frecuente</p>
@@ -136,7 +136,7 @@
         </div>
 
         <div id="passRewardStatus" class="p-3 rounded-xl bg-amberMech-500/10 border border-amberMech-500/20 text-xs font-bold text-amberMech-300">
-          Sumá <span id="passRemainingStamps">2</span> sellos más para tu próximo <span id="passRewardName">1 Parche Gratis</span> 🎁
+          Sumá <span id="passRemainingStamps">2</span> sellos más para tu próximo <span id="passRewardName">1 Parche Gratis</span>
         </div>
       </div>
 
@@ -147,7 +147,7 @@
       <p class="text-[11px] text-slate-400">Mostrá este código en la gomería al emparchar o cambiar cámara</p>
 
       <!-- Botón Guardar en Celular -->
-      <button onclick="savePassToHome()" class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amberMech-500 to-amberMech-600 hover:from-amberMech-400 hover:to-amberMech-500 text-workshop-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg active:scale-95 transition-all">
+      <button onclick="savePassToHome()" class="w-full py-3 px-4 rounded-2xl bg-amber-500 hover:bg-amber-400 text-workshop-950 font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all">
         <span>📲 Guardar en Pantalla de Inicio</span>
       </button>
 
@@ -170,7 +170,7 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2.5">
           <!-- Logo del Taller -->
-          <div id="headerLogoBox" class="w-10 h-10 rounded-2xl bg-gradient-to-br from-amberMech-500 to-amberMech-700 flex items-center justify-center text-xl shadow-md shadow-amberMech-500/20 overflow-hidden flex-shrink-0">
+          <div id="headerLogoBox" class="w-10 h-10 rounded-2xl bg-stone-900 border border-amberMech-500/30 text-amberMech-400 flex items-center justify-center text-xl shadow-sm overflow-hidden flex-shrink-0">
             🛞
           </div>
           <div>
@@ -181,7 +181,10 @@
 
         <!-- Botón rápido Cobro QR Mostrador -->
         <button onclick="openQuickQrModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-workshop-850 hover:bg-workshop-800 text-amberMech-400 border border-amberMech-500/30 text-xs font-bold active:scale-95 transition-all" title="Mostrar QR de cobro en mostrador">
-          <span>📷 Cobro QR</span>
+          <svg class="w-3.5 h-3.5 text-amberMech-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h4M4 12h4m12 0h.01M5 8h2a1 1 0 001-1V5a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1zm12 0h2a1 1 0 001-1V5a1 1 0 00-1-1h-2a1 1 0 00-1 1v2a1 1 0 001 1zM5 20h2a1 1 0 001-1v-2a1 1 0 00-1-1H5a1 1 0 00-1 1v2a1 1 0 001 1z"></path>
+          </svg>
+          <span>Cobro QR</span>
         </button>
       </div>
 
@@ -205,17 +208,20 @@
     <!-- Barra de Navegación por Pestañas -->
     <nav class="flex border-b border-workshop-800 bg-workshop-900/60 sticky top-[105px] z-20 px-2 pt-1 gap-1">
       <button onclick="switchTab('taller')" id="tabBtnTaller" class="flex-1 py-2.5 text-xs font-black rounded-t-xl transition-all border-b-2 border-amberMech-500 text-amberMech-400 bg-workshop-850/50 flex items-center justify-center gap-1.5">
-        <span>🛵 Taller Express</span>
+        <span>Taller Express</span>
         <span id="tabBadgeTaller" class="bg-amberMech-500/20 text-amberMech-400 px-1.5 py-0.2 rounded-full text-[10px]">0</span>
       </button>
       <button onclick="switchTab('clientes')" id="tabBtnClientes" class="flex-1 py-2.5 text-xs font-bold rounded-t-xl transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center justify-center gap-1.5">
-        <span>⭐ Fidelidad</span>
+        <span>Fidelidad</span>
       </button>
       <button onclick="switchTab('precios')" id="tabBtnPrecios" class="flex-1 py-2.5 text-xs font-bold rounded-t-xl transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center justify-center gap-1.5">
-        <span>🏷️ Precios</span>
+        <span>Precios</span>
       </button>
-      <button onclick="switchTab('ajustes')" id="tabBtnAjustes" class="py-2.5 px-3 text-xs font-bold rounded-t-xl transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center justify-center">
-        <span>⚙️</span>
+      <button onclick="switchTab('ajustes')" id="tabBtnAjustes" class="py-2.5 px-3 text-xs font-bold rounded-t-xl transition-all border-b-2 border-transparent text-slate-400 hover:text-slate-200 flex items-center justify-center" title="Ajustes">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+        </svg>
       </button>
     </nav>
 
@@ -228,8 +234,10 @@
       <section id="tabContentTaller" class="space-y-4">
         
         <!-- Botón Gigante Nuevo Trabajo -->
-        <button onclick="openNewJobModal()" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-amberMech-500 to-amberMech-600 hover:from-amberMech-400 hover:to-amberMech-500 text-workshop-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-amberMech-500/20 active:scale-95 transition-all">
-          <span class="text-base">➕</span>
+        <button onclick="openNewJobModal()" class="w-full py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-400 text-workshop-950 font-black text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm active:scale-95 transition-all">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"></path>
+          </svg>
           <span>Nuevo Trabajo de Gomería</span>
         </button>
 
@@ -239,16 +247,16 @@
             Todos (<span id="countFilterAll">0</span>)
           </button>
           <button onclick="setJobFilter('in_progress')" id="filterJobInProgress" class="px-3 py-1.5 rounded-full font-bold bg-workshop-850 text-slate-300 hover:bg-workshop-800 whitespace-nowrap transition-all">
-            ⏳ En Espera (<span id="countFilterProgress">0</span>)
+            En Espera (<span id="countFilterProgress">0</span>)
           </button>
           <button onclick="setJobFilter('ready')" id="filterJobReady" class="px-3 py-1.5 rounded-full font-bold bg-workshop-850 text-slate-300 hover:bg-workshop-800 whitespace-nowrap transition-all">
-            ✅ Listos para Retirar (<span id="countFilterReady">0</span>)
+            Listos para Retirar (<span id="countFilterReady">0</span>)
           </button>
           <button onclick="setJobFilter('motos')" id="filterJobMotos" class="px-3 py-1.5 rounded-full font-bold bg-workshop-850 text-slate-300 hover:bg-workshop-800 whitespace-nowrap transition-all">
-            🛵 Motos
+            Motos
           </button>
           <button onclick="setJobFilter('bicis')" id="filterJobBicis" class="px-3 py-1.5 rounded-full font-bold bg-workshop-850 text-slate-300 hover:bg-workshop-800 whitespace-nowrap transition-all">
-            🚲 Bicis
+            Bicis
           </button>
         </div>
 
@@ -922,7 +930,7 @@
             <!-- Estado Badge -->
             <div class="flex-shrink-0 text-right">
               ${isReady ? `
-                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-black bg-emerald-950/60 text-emerald-400 border border-emerald-500/40 animate-pulse">
+                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-950/60 text-emerald-400 border border-emerald-500/40 ring-2 ring-emerald-500/20">
                   ✓ LISTO
                 </span>
               ` : `
@@ -943,16 +951,16 @@
           <div class="flex items-center gap-2 pt-1">
             ${!isReady ? `
               <button onclick="markJobReady('${j.id}')" class="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-md">
-                <span>✅ Listo para Retirar</span>
+                <span>Listo para Retirar</span>
               </button>
             ` : `
               <button onclick="sendJobReadyWhatsApp('${j.id}')" class="flex-1 py-2 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 active:scale-95 transition-all shadow-md">
-                <span>📲 Avisar por WhatsApp</span>
+                <span>Avisar por WhatsApp</span>
               </button>
             `}
             
             <button onclick="openCobroModal('${j.id}')" class="px-3.5 py-2 rounded-xl bg-workshop-800 hover:bg-workshop-700 text-amberMech-400 border border-workshop-700 font-bold text-xs flex items-center gap-1 active:scale-95 transition-all">
-              <span>💵 Cobrar</span>
+              <span>Cobrar</span>
             </button>
           </div>
         `;
@@ -960,6 +968,25 @@
         container.appendChild(card);
       });
       updateMetrics();
+    }
+
+    // Normalización de celular argentino (+54 9 ...) para WhatsApp infalible
+    function formatArgentineWhatsApp(rawPhone) {
+      let cleaned = String(rawPhone || '').replace(/\D/g, '');
+      if (!cleaned) return '';
+      if (cleaned.startsWith('549')) return cleaned;
+      if (cleaned.startsWith('54')) {
+        cleaned = cleaned.substring(2);
+        if (!cleaned.startsWith('9')) cleaned = '9' + cleaned;
+        return '54' + cleaned;
+      }
+      if (cleaned.startsWith('15') && cleaned.length === 10) {
+        cleaned = cleaned.substring(2);
+      }
+      if (!cleaned.startsWith('9')) {
+        cleaned = '9' + cleaned;
+      }
+      return '54' + cleaned;
     }
 
     function markJobReady(jobId) {
@@ -984,19 +1011,15 @@
       const job = jobs.find(j => j.id === jobId);
       if (!job) return;
 
-      const phone = (job.clientPhone || '').replace(/\D/g, '');
+      const phone = formatArgentineWhatsApp(job.clientPhone);
       const wheelDesc = job.wheel === 'Suelta' ? 'la rueda suelta' : `la rueda ${job.wheel}`;
       const vehicleDesc = job.vehicleDetail ? `tu ${job.vehicleDetail}` : `tu ${job.vehicleType}`;
       
-      const msg = `¡Hola ${job.clientName}! 🛵💨 Te avisamos de *${settings.shopName}* que ya está lista *${wheelDesc}* de *${vehicleDesc}*.
-
-Total a abonar: *${formatCurrency(job.total)}* 💵
-
-¡Ya podés pasar a retirarla cuando quieras! Te esperamos.`;
+      const msg = `¡Hola ${job.clientName}! Te avisamos de *${settings.shopName}* que ya está lista *${wheelDesc}* de *${vehicleDesc}*.\n\nTotal a abonar: *${formatCurrency(job.total)}*\n\n¡Ya podés pasar a retirarla cuando quieras! Te esperamos.`;
       
       const waUrl = phone 
-        ? `https://wa.me/${phone.startsWith('54') ? phone : '549' + phone}?text=${encodeURIComponent(msg)}`
-        : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+        ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`
+        : `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
       
       window.open(waUrl, '_blank');
     }
@@ -1039,7 +1062,7 @@ Total a abonar: *${formatCurrency(job.total)}* 💵
               <div class="flex items-center gap-2">
                 <span class="text-sm font-black text-white">${c.name}</span>
                 ${hasReward ? `
-                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amberMech-500 text-workshop-950 animate-pulse">
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amberMech-500 text-workshop-950">
                     🏆 ¡PREMIO LISTO!
                   </span>
                 ` : ''}
@@ -1067,7 +1090,7 @@ Total a abonar: *${formatCurrency(job.total)}* 💵
             
             <div class="flex items-center gap-1.5 justify-start">
               ${Array.from({ length: targetStamps }).map((_, i) => `
-                <div class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black ${i < stamps ? 'bg-amberMech-500 text-workshop-950 shadow-md shadow-amberMech-500/30' : 'bg-workshop-800 text-slate-600 border border-workshop-700'}">
+                <div class="w-7 h-7 rounded-lg flex items-center justify-center text-xs font-black ${i < stamps ? 'bg-amberMech-500 text-workshop-950 font-bold' : 'bg-workshop-800 text-slate-600 border border-workshop-700'}">
                   🛞
                 </div>
               `).join('')}
@@ -1077,15 +1100,15 @@ Total a abonar: *${formatCurrency(job.total)}* 💵
           <!-- Acciones del Cliente -->
           <div class="flex items-center gap-2 pt-1 text-xs">
             <button onclick="addStampToClient('${c.id}')" class="flex-1 py-2 rounded-xl bg-workshop-800 hover:bg-workshop-700 text-amberMech-400 border border-workshop-700 font-bold active:scale-95 transition-all">
-              ➕ Sumar Sello
+              + Sello
             </button>
             ${hasReward ? `
-              <button onclick="claimRewardClient('${c.id}')" class="flex-1 py-2 rounded-xl bg-gradient-to-r from-amberMech-500 to-amberMech-600 text-workshop-950 font-black active:scale-95 transition-all">
-                🎁 Canjear Premio
+              <button onclick="claimRewardClient('${c.id}')" class="flex-1 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-workshop-950 font-black active:scale-95 transition-all">
+                Canjear Premio
               </button>
             ` : ''}
             <button onclick="shareCustomerPassWhatsApp('${c.id}')" class="px-3 py-2 rounded-xl bg-workshop-800 hover:bg-workshop-700 text-slate-300 border border-workshop-700 font-bold active:scale-95 transition-all" title="Enviar Tarjeta Digital por WhatsApp">
-              📲 Tarjeta
+              Tarjeta
             </button>
           </div>
         `;
@@ -1125,7 +1148,7 @@ Total a abonar: *${formatCurrency(job.total)}* 💵
       const client = clients.find(c => c.id === clientId);
       if (!client) return;
 
-      const phone = (client.phone || '').replace(/\D/g, '');
+      const phone = formatArgentineWhatsApp(client.phone);
       const baseUrl = window.location.origin + window.location.pathname;
       const passUrl = `${baseUrl}?pass=${client.id}`;
       const stamps = client.stamps || 0;
@@ -1139,8 +1162,8 @@ Podés ver tu tarjeta y tu premio acá:
 ${passUrl}`;
       
       const waUrl = phone 
-        ? `https://wa.me/${phone.startsWith('54') ? phone : '549' + phone}?text=${encodeURIComponent(msg)}`
-        : `https://wa.me/?text=${encodeURIComponent(msg)}`;
+        ? `https://api.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(msg)}`
+        : `https://api.whatsapp.com/send?text=${encodeURIComponent(msg)}`;
 
       window.open(waUrl, '_blank');
     }
